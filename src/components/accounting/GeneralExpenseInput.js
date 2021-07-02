@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import {
   Alert,
   Button,
@@ -11,8 +12,9 @@ import {
   ListGroup,
   ListGroupItem
 } from 'reactstrap';
-import { connect } from 'react-redux'
-import { createNewAccountingRecord } from '../../actions/accountingActions'
+import {
+  createNewExpenseInputRecord_Pending
+} from '../../actions/accountingActions'
 
 class GeneralExpenseInput extends Component {
 
@@ -49,11 +51,18 @@ class GeneralExpenseInput extends Component {
     return (
       <Form style={{ padding: "1rem 2rem" }}>
 
-        {this.props.isDataFlowing
-          &&
+        {this.props.isRecordCreated
+          ?
           <Alert color="success">
-            This is a success alert — check it out!
+            General Expense Input Record Created !!!
           </Alert>
+          :
+          this.props.errorMessage ?
+            <Alert color="danger">
+              {this.props.errorMessage}
+            </Alert>
+            :
+            <></>
         }
 
         <FormGroup style={{ padding: "1rem 0rem" }}>
@@ -120,9 +129,9 @@ class GeneralExpenseInput extends Component {
                     {
                       this.state.items.length > 0
                       &&
-                      this.state.items.map((item) => {
+                      this.state.items.map((item, index) => {
                         return (
-                          <Row>
+                          <Row key={index}>
                             <Col xs={8}>
                               <ListGroupItem color="success">
                                 {item}
@@ -152,13 +161,14 @@ class GeneralExpenseInput extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isDataFlowing: state.isDataFlowing
+    isRecordCreated: state.isRecordCreated,
+    errorMessage: state.errorMessage
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    submitForm: (data) => dispatch(createNewAccountingRecord(data))
+    submitForm: (data) => dispatch(createNewExpenseInputRecord_Pending(data))
   }
 }
 
