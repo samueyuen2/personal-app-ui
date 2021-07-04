@@ -13,6 +13,7 @@ import {
   DropdownItem,
   // NavbarText
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class NavbarOnTop extends Component {
 
@@ -26,12 +27,14 @@ class NavbarOnTop extends Component {
   render() {
     return (
       <Navbar color="light" light expand="md" style={{ padding: "1rem 2rem", position: 'sticky', top: 0 }}>
-        <NavbarBrand href="/">Samuel Yuen Personal App</NavbarBrand>
+        <NavbarBrand>Samuel Yuen Personal App</NavbarBrand>
         <NavbarToggler onClick={() => this.setState({ isOpen: !this.state.isOpen }, () => console.log("Navbar toggled!"))} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/">Home</NavLink>
+              <NavLink>
+                <Link to="/">Home</Link>
+              </NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
@@ -39,14 +42,14 @@ class NavbarOnTop extends Component {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
-                  New Data Input
+                  <Link to="/generalexpenseinput">New Data Input</Link>
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>
-                  Current Month Report
+                  <Link to="/currentmonthreport">Current Month Report</Link>
                 </DropdownItem>
                 <DropdownItem>
-                  Monthly Report
+                  <Link to="/monthlyreport">Monthly Report</Link>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
